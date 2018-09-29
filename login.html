@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>Login Page</title>
+    <link rel='stylesheet' href='assets/css/login.css' />
+    <script>
+        // Checks for querystring and retrieve either error or success message
+        var params = (new URL(document.location)).searchParams;
+        if (params.get("error") != null) {
+            alert(params.get("error"));
+            var url = document.location.toString();
+            var index = url.indexOf("?");
+            window.location = url.substr(0, index);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class='login-wrap'>
+            <h2>Login</h2>
+            <div class='form'>
+                <form name='login' action='login.pl' method='post'>
+                    <input type='email' name='txtLoginEmail' id='txtLoginEmail' placeholder='Email ID' required='required' />
+                    <input type='password' name='txtLoginPass' id='txtLoginPass' placeholder='Password' required='required' />
+                    <input type='Submit' value='Login' id='btnSubmit' />
+                    <input type='Reset' value='Clear Form' />
+                    <a href='admin.html'>
+                        <p> Admin? Login Here </p>
+                    </a>
+                    <a href='register.html'>
+                        <p> Don't have an account? Register </p>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

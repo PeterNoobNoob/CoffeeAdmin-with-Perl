@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="assets/css/admin.css" />
+    <link rel="stylesheet" href="assets/css/nav.css" />
+    <script>
+        chkUser();
+        function chkUser() {
+            if (localStorage.getItem('email') == null)
+                window.location = 'admin.html';
+        }
+        // Checks for querystring and retrieve either error or success message
+        var params = (new URL(document.location)).searchParams;
+        if (params.get("error") != null) {
+            alert(params.get("error"));
+            var url = document.location.toString();
+            var index = url.indexOf("?");
+            window.location = url.substr(0, index);
+        }
+        if (params.get("success") != null) {
+            alert(params.get("success"));
+            var url = document.location.toString();
+            var index = url.indexOf("?");
+            window.location = url.substr(0, index);
+        }
+        if (params.get("email") != null) {
+            localStorage.setItem('email', params.get("email"));
+            var url = document.location.toString();
+            var index = url.indexOf("?");
+            window.location = url.substr(0, index);
+        }
+
+        // Add new controls for coffee type
+        function addType() {
+            // Fetching counter value from hiddden field and updating its value
+            var c = document.getElementById("counter").value;
+            document.getElementById('counter').value = ++c;
+            var child = document.createElement("div");
+            child.id = 'divType' + c;
+            child.className = "formDiv";
+            var code = "<input type='text' class='coffeeName' placeholder='Coffee Name' name='coffeeName" + c + "' required />" +
+                "<input type='number' min='1' style='margin-left:4px;' class='coffeeMg' placeholder='MG' name='coffeeMg" + c + "' required />" +
+                "<button type='button' style='margin-left:4px;' class='addBtn' onclick=\"delType('divType" + c + "')\">x</button>";
+            child.innerHTML = code;
+            document.getElementById('coffeeTypes').appendChild(child);
+        }
+
+        // Remove the controls for control type
+        function delType(divId) {
+            var div = document.getElementById(divId);
+            div.remove();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="navbar-default">
+        <span>
+            <a href="admin-register-machine.html">Register New Machine</a>
+        </span>
+        <span>
+            <a href="admin-fetch-machine-view.pl">Registered Machines</a>
+        </span> 
+        <span>
+            <a href="admin-check-level-view.pl">Check Caffeine Level</a>
+        </span>
+        <span>
+            <a href="#" onclick="localStorage.clear(); window.location='admin.html';">Logout</a>
+        </span>        
+    </div>
+    <div id="pageContainer">
+        <div id="formContainer">
+            <div id="forms">
+                <form id="addMachine" action="admin-register-machine.pl" method="POST">
+                    <div class="formHead">
+                        <h1>WELCOME BACK</h1>
+                        <p>Register New Coffee Machine</p>
+                    </div>
+                    <div class="formDiv">
+                        <input type="text" placeholder="Coffee Machine Name" name="machineName" required />
+                    </div>
+                    <div id="coffeeTypes">
+                        <div class="formDiv">
+                            <input type="text" class="coffeeName" placeholder="Coffee Name" name="coffeeName0" required />
+                            <input type="number" min="1" class="coffeeMg" placeholder="MG" name="coffeeMg0" required />
+                            <button type="button" class="addBtn" onclick="addType();return false;">+</button>
+                        </div>
+                    </div>
+                    <div class="formDiv">
+                        <input type="submit" value="Add Machine" />
+                    </div>
+                </form>
+                <input type="hidden" value="0" id="counter">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

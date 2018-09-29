@@ -1,0 +1,25 @@
+.navbar-default{
+  background-color: rgba(85, 85, 85, 0.432);
+  position: fixed;
+  width: 15%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-default span{
+  background-color: azure;
+  padding: 10px 0px;
+  width: 100%;
+  text-align: center;
+  float: right;
+  border-bottom: 5px solid #cccccc;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.navbar-default span a{
+  text-decoration: none;
+  color: brown;
+}
